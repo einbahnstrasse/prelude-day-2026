@@ -64,8 +64,6 @@
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 										referrerpolicy="strict-origin-when-cross-origin"
 									></iframe>
-									<!-- click shield: hides YouTube's overlay UI; click to play/pause -->
-									<div class="yt-shield" style="position: absolute; inset: 0; z-index: 2; cursor: pointer; background: url('https://i.ytimg.com/vi/OX1OsNlgS48/hqdefault.jpg') center / cover no-repeat;"></div>
 								</div>
 								<p style="font-size: 35%;"><em>source</em>: Verbum Gloriae, “Dies iræ – Secuencia de la Misa de Difuntos”</p>
 							</div>
@@ -413,18 +411,16 @@ K:Ddor
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 										referrerpolicy="strict-origin-when-cross-origin"
 									></iframe>
-									<!-- click shield: hides YouTube's overlay UI; click to play/pause (z-index beats reveal.css's iframe z-index: 1) -->
-									<div class="yt-shield" style="position: absolute; inset: 0; z-index: 2; cursor: pointer; background: url('https://i.ytimg.com/vi/FPv9-rWITrM/maxresdefault.jpg') center / cover no-repeat;"></div>
 								</div>
 								<p style="font-size: 35%;"><em>source</em>: dancohen, “Animated Sheet Music: ‘So What’ by Miles Davis”</p>
 							</div>
 							<div class="quote-col" style="font-size: 55%;">
 								<ul>
-									<li class="fragment">For centuries, these few materials have given composers a <strong>fruitful toolkit</strong>.</li>
-									<li class="fragment">Amazingly, centuries after the <em>Dies irae</em>, the <strong style="color:#4ea1ff;">Dorian</strong> mode inspired jazz greats <strong>Miles Davis</strong> (trumpet) and <strong>John Coltrane</strong> (tenor sax).</li>
-									<li class="fragment">From <em>Kind of Blue</em>, with Cannonball Adderley, Bill Evans, Paul Chambers, and Jimmy Cobb.</li>
-									<li class="fragment">The form: 16 bars of <strong style="color:#4ea1ff;">D Dorian</strong>, 8 bars a half step up in E♭ Dorian, then 8 more in D.</li>
-									<li class="fragment">Listen for a stable <strong>home</strong> on D, and wide-open space to improvise.</li>
+									<li class="fragment">For centuries, these few materials have given composers a <strong>toolkit</strong> of resources.</li>
+									<li class="fragment">700 years after <em>Dies irae</em>, the <strong style="color:#4ea1ff;">Dorian</strong> mode inspired jazz greats <strong>Miles Davis</strong> (trp.) and <strong>John Coltrane</strong> (sax.).</li>
+									<!-- <li class="fragment">From <em>Kind of Blue</em>, with Cannonball Adderley, Bill Evans, Paul Chambers, and Jimmy Cobb.</li> -->
+									<li class="fragment">16 bars of <strong style="color:#4ea1ff;">D Dorian</strong>, 8 bars a half step up in E♭ Dorian, then 8 more in D.</li>
+									<li class="fragment">Listen for a stable <strong>final</strong> on D, and wide-open space to improvise.</li>
 								</ul>
 							</div>
 						</div>
@@ -1725,11 +1721,6 @@ K:Ddor
 				});
 
 				currentAudio = null;
-
-				document.querySelectorAll(".yt-shield").forEach(shield => {
-					ytCommand(shield, "pauseVideo");
-					shield.dataset.playing = "";
-				});
 				});
 
 			// abcjs notation: render once, when its slide is visible (abcjs needs real layout to measure text)
@@ -1850,21 +1841,6 @@ K:Ddor
 			Reveal.on('ready', event => renderAbcFigures(event.currentSlide));
 			Reveal.on('slidechanged', event => { stopAbcPlayback(); renderAbcFigures(event.currentSlide); });
 			if (Reveal.isReady()) renderAbcFigures(Reveal.getCurrentSlide());
-
-			// YouTube click shield: play/pause via the iframe API so YouTube's own UI never shows
-			function ytCommand(shield, func) {
-			const iframe = shield.parentElement.querySelector("iframe.yt-clean");
-			iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*");
-			}
-
-			document.querySelectorAll(".yt-shield").forEach(shield => {
-			shield.addEventListener("click", () => {
-				const playing = shield.dataset.playing === "1";
-				ytCommand(shield, playing ? "pauseVideo" : "playVideo");
-				shield.dataset.playing = playing ? "" : "1";
-				shield.style.backgroundImage = "none";
-			});
-			});
 		</script>
 
 	</body>
