@@ -8,13 +8,16 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<!-- <link rel="stylesheet" href="dist/theme/beige.v02.css"> -->
 		<link rel="stylesheet" href="dist/theme/lg.beige.v01.css">
 		<link rel="stylesheet" href="dist/theme/velodroma-superwide-wakamaifondue.css">
 		<link rel="stylesheet" href="dist/theme/NeueDINReg-wakamaifondue.css">
 		<link rel="stylesheet" href="dist/theme/ghostly.text.v01.css">
-		<!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
 		<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+		<style>
+			/* abcjs: note currently sounding during ▶ playback */
+			.abc-figure .abcjs-playing { fill: #4ea1ff; stroke: #4ea1ff; }
+		</style>
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -25,56 +28,285 @@
 			<div class="slides">
 
 <!-- ========================================= -->
-<!--   TEACHING DEMONSTRATION: ORCHESTRATION   -->
+<!--   DIES IRAE   -->
 <!-- ========================================= -->
 
 				<section data-background-color="#f7f2d3">
-					<!-- <h1 class="r-fit-text">LOuIS goLdforD</h1>
-					<h2 class="r-fit-text">woRKs — 2023</h2> -->
-					<!-- <div class="velodroma-superwide-salt words word-1">
-						<span>L</span>
-						<span>O</span>
-						<span>u</span>
-						<span>I</span>
-						<span>S</span>
-						<span>&nbsp;</span>
-						<span>g</span>
-						<span>o</span>
-						<span>L</span>
-						<span>d</span>
-						<span>f</span>
-						<span>o</span>
-						<span>r</span>
-						<span>D</span>
-					  </div> -->
-					  <!-- <div class="velodroma-superwide-salt words word-2 r-fit-text">
-						<span>w</span>
-						<span>o</span>
-						<span>R</span>
-						<span>K</span>
-						<span>s</span>
-						<span>—</span>
-						<span>2</span>
-						<span>0</span>
-						<span>2</span>
-						<span>6</span>
-					  </div> -->
 					<div id="glitchy-date">
 						<p style="font-size: 1.5em; font-style: oblique;" class="--onum hero glitch layers movement paths" data-text="Twist the Dial: Same Notes, New Worlds">Twist the Dial: Same Notes, New Worlds</p>
 						<p class="--onum hero glitch layers movement paths" data-text="Prelude Day — UWM Peck School of the Arts — October 23, 2026">Prelude Day — UWM Peck School of the Arts — October 23, 2026</p>
 					</div>
-					<!-- <div id="div-logos" style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
-						<img src="./assets/logos/music-department-masthead-crown-logo-cropped.transparent.png" alt="columbia-logo" width="300px" style="background:none; border:none; box-shadow:none; transform: translate(-1dvh, 0);">
-						<img src="./assets/logos/fulbright.france.logo.transparent.png" alt="fulbright-logo" width="100px" style="background:none; border:none; box-shadow:none;">
-						<img src="./assets/logos/ACTOR_logo_colour_fullname.png" alt="actor-logo" width="140px" style="background:none; border:none; box-shadow:none; transform: translate(0, -1dvh);">
-						<img src="./assets/logos/spat.ircam.logo.gif" alt="ircam-logo" width="100px" style="background:none; border:none; box-shadow:none; transform: translate(0, -0.5dvh);">
-					</div> -->
-					<!-- <aside class="notes">
-						Well first of all, thank you all for coming.  <br>  
-						It's an honor to be here. <br><br>
-						I'd like to tell you a few things about myself and then see what you think.<br>  
-						So let's get started...
-					</aside> -->
+				</section>
+
+				<section>
+				<section class="centered-media-slide">
+					<div class="regular-text --onum">
+						<div style="padding-bottom: 15px;">
+							<h4>Dies irae <em>(“Day of Wrath”)</em></h4>
+						</div>
+						<div class="media-row">
+							<div class="video-col">
+								<div style="position: relative; width:100%; aspect-ratio: 16 / 9;">
+									<iframe
+										class="yt-clean"
+										src="https://www.youtube.com/embed/OX1OsNlgS48?enablejsapi=1&rel=0&controls=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1"
+										title="Dies iræ – Gregorian chant"
+										style="position: absolute; inset: 0; width:100%; height:100%; border:none;"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										referrerpolicy="strict-origin-when-cross-origin"
+									></iframe>
+									<!-- click shield: hides YouTube's overlay UI; click to play/pause -->
+									<div class="yt-shield" style="position: absolute; inset: 0; cursor: pointer; background: url('https://i.ytimg.com/vi/OX1OsNlgS48/hqdefault.jpg') center / cover no-repeat;"></div>
+								</div>
+								<p style="font-size: 35%;"><em>source</em>: Verbum Gloriae, “Dies iræ – Secuencia de la Misa de Difuntos”</p>
+							</div>
+							<div class="quote-col" style="font-size: 55%;">
+								<ul>
+									<li class="fragment">Chant from the <strong>Requiem Mass</strong>, sung in Latin for the dead.</li>
+									<li class="fragment">13th century (earliest known source is a Franciscan missal, c. 1253–55).</li>
+									<li class="fragment">Notice that its melody keeps returning <strong>home</strong> to one note: <strong>D</strong>.</li>
+									<li class="fragment">Medieval musicians called that home note the <strong>final</strong> — and sorted chants into <strong>modes</strong> that share the same final.</li>
+									<li class="fragment">This one we now call <strong style="color:#4ea1ff;">Dorian mode.</strong></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">Dies irae: Modern Notation</h4>
+					<div class="regular-text">
+						<img src="./assets/img/dies-irae-treble.jpg" alt="Dies irae opening in modern treble-clef notation" style="width:100%; background:none; border:none; box-shadow:none;">
+						<p style="font-size: 35%;"><em>source</em>: Wikimedia Commons, “Dies Irae Treble.JPG” (public domain)</p>
+						<p class="fragment" style="font-size: 65%;">Same melody, modern treble clef: now we can <em>see</em> it start, circle, and land on <strong>D</strong>.</p>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">White Keys — D Final</h4>
+					<div class="regular-text" style="display: flex; align-items: center; justify-content: center; gap: 3rem;">
+						<!-- LEFT: keyboard + text -->
+						<div style="flex: 0 0 52%; text-align: left;">
+							<div class="fragment" data-fragment-index="1">
+								<svg viewBox="0 0 402 162" style="width:100%; max-width:440px; height:auto; font-family: inherit;" role="img" aria-label="Keyboard with white keys highlighted and D marked as home">
+									<rect x="1" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="21" y="146" text-anchor="middle" font-size="18" fill="#333">C</text>
+									<rect x="41" y="1" width="40" height="160" rx="3" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+									<text x="61" y="146" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff">D</text>
+									<rect x="81" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="101" y="146" text-anchor="middle" font-size="18" fill="#333">E</text>
+									<rect x="121" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="141" y="146" text-anchor="middle" font-size="18" fill="#333">F</text>
+									<rect x="161" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="181" y="146" text-anchor="middle" font-size="18" fill="#333">G</text>
+									<rect x="201" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="221" y="146" text-anchor="middle" font-size="18" fill="#333">A</text>
+									<rect x="241" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="261" y="146" text-anchor="middle" font-size="18" fill="#333">B</text>
+									<rect x="281" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="301" y="146" text-anchor="middle" font-size="18" fill="#333">C</text>
+									<rect x="321" y="1" width="40" height="160" rx="3" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+									<text x="341" y="146" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff">D</text>
+									<rect x="361" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="381" y="146" text-anchor="middle" font-size="18" fill="#333">E</text>
+									<!-- black keys: unused, dimmed -->
+									<rect x="29" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="69" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="149" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="189" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="229" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="309" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									<rect x="349" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+								</svg>
+								<p style="font-size: 65%;">White keys only, but D is <strong>home</strong> <em>(“final”)</em>. That collection is called <strong style="color:#4ea1ff;">D Dorian.</strong></p>
+							</div>
+							<p class="fragment" data-fragment-index="2" style="font-size: 65%;">Wrap 12 chromatic pitches around a <strong>circle</strong>: the same 7 white keys, with D on top.</p>
+							<p class="fragment" data-fragment-index="3" style="font-size: 65%;">Clockwise from D: <strong>W <span style="color:#4ea1ff;">H</span> W W W <span style="color:#4ea1ff;">H</span> W</strong> <em>(whole & half steps)</em>. That pattern <em>is</em> Dorian.</p>
+						</div>
+						<!-- RIGHT: note circle (D at 12 o'clock, clockwise by half step) -->
+						<div class="fragment" data-fragment-index="2" style="flex: 0 0 36%;">
+							<svg viewBox="0 0 320 320" style="width:100%; max-width:340px; height:auto; font-family: inherit;" role="img" aria-label="Circle of twelve notes with the seven white notes highlighted and D at the top">
+								<circle cx="160" cy="160" r="112" fill="none" stroke="#333" stroke-width="1" opacity="0.35"/>
+								<g class="fragment" data-fragment-index="3">
+									<polygon points="160,48 257,104 272,160 216,257 104,257 48,160 63,104" fill="#4ea1ff" fill-opacity="0.12" stroke="#4ea1ff" stroke-width="2"/>
+								</g>
+								<circle cx="160" cy="48" r="17" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+								<text x="160" y="54" text-anchor="middle" font-size="17" font-weight="bold" fill="#fff">D</text>
+								<circle cx="216" cy="63" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<circle cx="257" cy="104" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="257" y="110" text-anchor="middle" font-size="17" fill="#333">E</text>
+								<circle cx="272" cy="160" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="272" y="166" text-anchor="middle" font-size="17" fill="#333">F</text>
+								<circle cx="257" cy="216" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<circle cx="216" cy="257" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="216" y="263" text-anchor="middle" font-size="17" fill="#333">G</text>
+								<circle cx="160" cy="272" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<circle cx="104" cy="257" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="104" y="263" text-anchor="middle" font-size="17" fill="#333">A</text>
+								<circle cx="63" cy="216" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<circle cx="48" cy="160" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="48" y="166" text-anchor="middle" font-size="17" fill="#333">B</text>
+								<circle cx="63" cy="104" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+								<text x="63" y="110" text-anchor="middle" font-size="17" fill="#333">C</text>
+								<circle cx="104" cy="63" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<!-- step labels -->
+								<g class="fragment" data-fragment-index="3" font-size="18" font-weight="bold" text-anchor="middle">
+									<text x="196" y="104" fill="#333">W</text>
+									<text x="229.5" y="147" fill="#4ea1ff">H</text>
+									<text x="222.4" y="202" fill="#333">W</text>
+									<text x="160" y="238" fill="#333">W</text>
+									<text x="97.6" y="202" fill="#333">W</text>
+									<text x="90.5" y="147" fill="#4ea1ff">H</text>
+									<text x="124" y="104" fill="#333">W</text>
+								</g>
+							</svg>
+						</div>
+					</div>
+				</section>
+				</section>
+
+				<section>
+				<section class="--onum">
+					<h4 style="text-align:left;">What Is a Mode?</h4>
+					<p style="font-size: 65%; text-align:left;">A <strong>mode</strong> is a collection of notes <em>plus</em> a <strong>final</strong>: one note that all others revolve around.</p>
+					<div class="regular-text" style="display: flex; align-items: center; justify-content: center; gap: 3rem;">
+						<!-- LEFT: keyboard + text -->
+						<div style="flex: 0 0 52%; text-align: left;">
+							<div class="fragment" data-fragment-index="1">
+									<svg viewBox="0 0 402 162" style="width:100%; max-width:440px; height:auto; font-family: inherit;" role="img" aria-label="Keyboard with white keys highlighted and C marked as home">
+										<rect x="1" y="1" width="40" height="160" rx="3" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+										<text x="21" y="146" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff">C</text>
+										<rect x="41" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="61" y="146" text-anchor="middle" font-size="18" fill="#333">D</text>
+										<rect x="81" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="101" y="146" text-anchor="middle" font-size="18" fill="#333">E</text>
+										<rect x="121" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="141" y="146" text-anchor="middle" font-size="18" fill="#333">F</text>
+										<rect x="161" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="181" y="146" text-anchor="middle" font-size="18" fill="#333">G</text>
+										<rect x="201" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="221" y="146" text-anchor="middle" font-size="18" fill="#333">A</text>
+										<rect x="241" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="261" y="146" text-anchor="middle" font-size="18" fill="#333">B</text>
+										<rect x="281" y="1" width="40" height="160" rx="3" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+										<text x="301" y="146" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff">C</text>
+										<rect x="321" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="341" y="146" text-anchor="middle" font-size="18" fill="#333">D</text>
+										<rect x="361" y="1" width="40" height="160" rx="3" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+										<text x="381" y="146" text-anchor="middle" font-size="18" fill="#333">E</text>
+										<!-- black keys: unused, dimmed -->
+										<rect x="29" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="69" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="149" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="189" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="229" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="309" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+										<rect x="349" y="1" width="24" height="100" rx="2" fill="#bdbab0" stroke="#333" stroke-width="1"/>
+									</svg>
+								<p style="font-size: 60%;">Same white keys, but now <strong>C</strong> is the final: our familiar <strong>major</strong> scale, also called <strong style="color:#4ea1ff;">C Ionian.</strong></p>
+							</div>
+							<p class="fragment" data-fragment-index="2" style="font-size: 60%;">Twist the dial so that <strong>C</strong> is on top: the same 7 white keys, but a new center.</p>
+							<p class="fragment" data-fragment-index="3" style="font-size: 60%;">Clockwise from C: <strong>W W <span style="color:#4ea1ff;">H</span> W W W <span style="color:#4ea1ff;">H</span></strong>. Compare D Dorian: <strong>W <span style="color:#4ea1ff;">H</span> W W W <span style="color:#4ea1ff;">H</span> W</strong>. Same notes, new final, <em>new world</em>.</p>
+						</div>
+						<!-- RIGHT: note circle (C at 12 o'clock, clockwise by half step) -->
+						<div class="fragment" data-fragment-index="2" style="flex: 0 0 36%;">
+								<svg viewBox="0 0 320 320" style="width:100%; max-width:340px; height:auto; font-family: inherit;" role="img" aria-label="Circle of twelve notes with the seven white notes highlighted and C at the top">
+									<circle cx="160" cy="160" r="112" fill="none" stroke="#333" stroke-width="1" opacity="0.35"/>
+									<g class="fragment" data-fragment-index="3">
+										<polygon points="160,48 257,104 257,216 216,257 104,257 48,160 104,63" fill="#4ea1ff" fill-opacity="0.12" stroke="#4ea1ff" stroke-width="2"/>
+									</g>
+									<circle cx="160" cy="48" r="17" fill="#4ea1ff" stroke="#333" stroke-width="1.5"/>
+									<text x="160" y="54" text-anchor="middle" font-size="17" font-weight="bold" fill="#fff">C</text>
+									<circle cx="216" cy="63" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<circle cx="257" cy="104" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="257" y="110" text-anchor="middle" font-size="17" fill="#333">D</text>
+									<circle cx="272" cy="160" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<circle cx="257" cy="216" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="257" y="222" text-anchor="middle" font-size="17" fill="#333">E</text>
+									<circle cx="216" cy="257" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="216" y="263" text-anchor="middle" font-size="17" fill="#333">F</text>
+									<circle cx="160" cy="272" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<circle cx="104" cy="257" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="104" y="263" text-anchor="middle" font-size="17" fill="#333">G</text>
+									<circle cx="63" cy="216" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<circle cx="48" cy="160" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="48" y="166" text-anchor="middle" font-size="17" fill="#333">A</text>
+									<circle cx="63" cy="104" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<circle cx="104" cy="63" r="15" fill="#d9ebff" stroke="#333" stroke-width="1.5"/>
+									<text x="104" y="69" text-anchor="middle" font-size="17" fill="#333">B</text>
+									<!-- step labels -->
+									<g class="fragment" data-fragment-index="3" font-size="18" font-weight="bold" text-anchor="middle">
+										<text x="196" y="104" fill="#333">W</text>
+										<text x="232" y="166" fill="#333">W</text>
+										<text x="210.9" y="217" fill="#4ea1ff">H</text>
+										<text x="160" y="238" fill="#333">W</text>
+										<text x="97.6" y="202" fill="#333">W</text>
+										<text x="97.6" y="130" fill="#333">W</text>
+										<text x="141.4" y="96" fill="#4ea1ff">H</text>
+									</g>
+								</svg>
+						</div>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">Building Triads</h4>
+					<p style="font-size: 65%; text-align:left;">Stack every <em>other</em> note of the scale (a <strong>third</strong> apart) to build a <strong>triad</strong> on each step.</p>
+					<div class="regular-text">
+						<!-- notation rendered by abcjs (see renderAbcFigures below) -->
+						<div class="fragment" data-fragment-index="1" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure" style="flex: 1;"><script type="text/vnd.abc">
+X:1
+L:1/1
+K:C
+%%annotationfont serif 16
+"_1"C "_2"D "_3"E "_4"F "_5"G "_6"A "_7"B "_1"c |]
+</script></div>
+						</div>
+						<div class="fragment" data-fragment-index="2" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure" style="flex: 1;"><script type="text/vnd.abc">
+X:2
+L:1/1
+K:C
+%%annotationfont serif 16
+"^C""_I"[CEG] "^Dm""_ii"[DFA] "^Em""_iii"[EGB] "^F""_IV"[FAc] "^G""_V"[GBd] "^Am""_vi"[Ace] "^B°""_vii°"[Bdf] |]
+</script></div>
+						</div>
+						<p class="fragment" data-fragment-index="3" style="font-size: 60%; text-align:left;">3 flavors appear: <strong>major</strong> (I, IV, V), <strong>minor</strong> (ii, iii, vi), and <strong>diminished</strong> (vii°). Each <strong>mode</strong> puts them in a different order around its <strong>final</strong>.</p>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">Triads in D Dorian</h4>
+					<p style="font-size: 65%; text-align:left;">Same white keys, same stacking — but now we count from <strong style="color:#4ea1ff;">D</strong>, the final.</p>
+					<div class="regular-text">
+						<!-- notation rendered by abcjs (see renderAbcFigures below) -->
+						<div class="fragment" data-fragment-index="1" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure" style="flex: 1;"><script type="text/vnd.abc">
+X:3
+L:1/1
+K:Ddor
+%%annotationfont serif 16
+"_1"D "_2"E "_3"F "_4"G "_5"A "_6"B "_7"c "_1"d |]
+</script></div>
+						</div>
+						<div class="fragment" data-fragment-index="2" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure" style="flex: 1;"><script type="text/vnd.abc">
+X:4
+L:1/1
+K:Ddor
+%%annotationfont serif 16
+"^Dm""_i"[DFA] "^Em""_ii"[EGB] "^F""_III"[FAc] "^G""_IV"[GBd] "^Am""_v"[Ace] "^B°""_vi°"[Bdf] "^C""_VII"[ceg] |]
+</script></div>
+						</div>
+						<p class="fragment" data-fragment-index="3" style="font-size: 60%; text-align:left;">Move the final and you move the <strong>center of gravity</strong>: every note and chord now leans toward <strong style="color:#4ea1ff;">D</strong>, not C. Same pieces, a <em>whole new world</em>.</p>
+						<p class="fragment" data-fragment-index="4" style="font-size: 60%; text-align:left;">Dorian’s fingerprint: a <strong>minor</strong> i, but a <strong>major</strong> IV (G–B–D), thanks to <strong style="color:#4ea1ff;">B♮</strong>, the raised 6th.</p>
+					</div>
+				</section>
 				</section>
 
 				<section>
@@ -106,7 +338,6 @@
 								<li class="fragment" data-fragment-index="3"><strong style="color: brown;">Viola:</strong> lowest string C3; its typical writing reaches into the high E6–G6 range.</li>
 								<li class="fragment" data-fragment-index="4"><strong style="color: orangered;">Cello:</strong> lowest string C2; upper register overlaps with violin’s middle register.</li>
 								<li class="fragment" data-fragment-index="5"><strong style="color: darkgoldenrod;">Double bass:</strong> lowest string E1 (or, down to C1 with a <em>low C foot</em>); upper register reaches into the 5th octave.</li>
-								<!-- <li class="fragment" data-fragment-index="6">Unlike other families, the strings cover the <strong>widest range within the orchestra</strong>, including some of the lowest & highest frequencies produced acoustically.</li> -->
 							</ul>
 							</div>
 
@@ -198,8 +429,6 @@
 							<div class="pg-layout">
 							<div class="pg-text slightly-smaller">
 							<ul>
-								<!-- <li class="fragment">Other orchestral families project louder or softer in different registers <em>(e.g., the oboe becomes quieter and “thinner” as pitch climbs.)</em></li> -->
-								<!-- <li class="fragment">The winds + brasses don’t achieve this dynamic unity quite as easily.</li> -->
 								<p>Strings maintain <strong>consistent dynamics</strong> across registers and instrumental groupings, and are <em>flexible</em> within the orchestra:</p>
 									<ul>
 										<li class="fragment">capable of nuanced, expressive playing at extreme louds and softs;</li>
@@ -231,7 +460,6 @@
 
 					<section class="--onum">
 						<div>
-							<!-- <h4 style="text-align:left;">G	rouping Effects</h4> -->
 							<div>
 								<div style="font-size: 70%;">
 									<p>In other words, strings naturally support <br><em>both</em> perceptual <strong style="color:#43d37b;">integration</strong> <em>and</em> <strong style="color: #4ea1ff;">stratification.</strong></p>
@@ -371,53 +599,7 @@
 					</div>
 				</section>
 
-				<!-- <section>
-					<div class="regular-text --onum">
-						<h4>Live Survey</h4>
-						<figure id="gma" style="position: fixed; top: 0px; right: 0px;">
-							<a href="https://www.menti.com/bls68ps1ffgo" target="_blank">
-								<img src="./assets/img/mentimeter_qr_transparent.png" alt="excerpts" width="250px" style="background:none; border:none; box-shadow:none;">
-							</a>
-						</figure>
-						<div class="slightly-smaller">
-								<p><em>Your realtime in-class listening responses:</em></p>
-								<p>Join by scanning this other <strong>QR code →</strong></p>
-								<p><em>or visit</em> <a href="https://menti.com">menti.com</a> & <em>enter:</em> <strong>9869 4477</strong></p>
-								<p><em>or type</em> <a href="https://www.menti.com/bls68ps1ffgo">https://www.menti.com/bls68ps1ffgo</a></p>
-						</div>
-					</div>
-				</section> -->
 
-				<!-- <section>
-					<div class="regular-text --onum" style="position: relative;">
-						
-						<h4>Layers?</h4>
-
-						<div class="menti-shell">
-						<iframe 
-							class="menti-frame"
-							sandbox="allow-popups allow-scripts allow-same-origin allow-presentation" 
-							allowfullscreen="true"
-							src="https://www.mentimeter.com/app/presentation/blzdbvxq3zg4y7rv4czma1nqpb875rr9/embed">
-						</iframe>
-						</div>
-
-						<div class="menti-qr">
-						<img src="./assets/img/mentimeter_qr_transparent.png">
-						<div>menti.com</div>
-						<div>9869 4477</div>
-						<div class="mini-audio-player">
-							<button class="mini-audio-button" onclick="toggleAudio(this)">▶</button>
-
-							<div class="mini-audio-progress">
-							<div class="mini-audio-progress-fill"></div>
-							</div>
-
-							<audio src="./assets/audio/Ravel_AlboradaDelGracioso_Ravel_AlboradaDelGracioso_20547426387a4bf8a8a685104ddd1a6c_1.wav"></audio>
-						</div>
-						</div>
-					</div>
-				</section> -->
 
 				<!-- KOECHLIN — VOLUME / INTENSITY — LA TRAVIATA -->
 
@@ -1047,37 +1229,6 @@
 
 				</section>
 
-				<!-- <section>
-					<div class="regular-text --onum" style="position: relative;">
-						
-						<h4>Divisi vs. Tutti?</h4>
-
-						<div class="menti-shell">
-						<iframe 
-							class="menti-frame"
-							sandbox="allow-popups allow-scripts allow-same-origin allow-presentation" 
-							allowfullscreen="true"
-							src="https://www.mentimeter.com/app/presentation/blzdbvxq3zg4y7rv4czma1nqpb875rr9/embed">
-						</iframe>
-						</div>
-
-						<div class="menti-qr">
-						<img src="./assets/img/mentimeter_qr_transparent.png">
-						<div>menti.com</div>
-						<div>9869 4477</div>
-
-						<div class="mini-audio-player">
-							<button class="mini-audio-button" onclick="toggleAudio(this)">▶</button>
-
-							<div class="mini-audio-progress">
-							<div class="mini-audio-progress-fill"></div>
-							</div>
-
-							<audio src="./assets/audio/traviata.mm1-25.wav"></audio>
-						</div>
-						</div>
-					</div>
-				</section> -->
 
 <!-- ========================================= -->
 <!-- RAVEL -->
@@ -1274,9 +1425,6 @@
 						</div>
 					</section>
 
-				<!-- <section>
-					<iframe width="1120" height="630" src="https://www.youtube.com/embed/23RXq6MFLY8?si=0jygSYm0azbJBQCW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-				</section> -->
 
 				</section>
 
@@ -1285,72 +1433,11 @@
 <!-- ========================================= -->
 
 
-				<!-- <section class="--onum">
-					<div>
-						<h4 style="text-align:left;">SUMMARY</h4>
-						<div class="regular-text">
-							<div style="font-size: 60%;">
-								<p>
-									Today’s class covered the basics of string section grouping, phrasing, and harmonics.<br>Next class will focus on: 
-								</p>
-
-								<ul>
-									<li class="fragment fade-left">Detailed bow strokes (e.g., <em>détaché</em>, <em>martelé</em>, <em>spiccato</em>, <em>sautillé</em>)</li>
-									<li class="fragment fade-left">Vertical bowing (e.g., <em>sul ponticello</em> and <em>sul tasto</em>)</li>
-									<li class="fragment fade-left">Col legno (e.g., battuto, tratto)</li>
-									<li class="fragment fade-left">In-depth pizzicato discussion, incl. left hand and Bartòk pizz.</li>
-									<li class="fragment fade-left">Contemporary approaches: e.g., Helmut Lachenmann’s <em>friction</em> techniques for strings</li>
-								</ul>
-
-							</div>
-						</div>
-					</div>
-				</section> -->
 
 <!-- ========================================= -->
 <!-- ASSIGNMENTS -->
 <!-- ========================================= -->
 				
-				<!-- <section class="--onum">
-					<div>
-						<h4 style="text-align:left;">Assignments</h4>
-
-						<div style="font-size: 65%; margin-top:1em;">
-
-							<p class="regular-text">
-								These will also be posted under today’s date on Canvas/Moodle:
-							</p>
-
-							<table style="width:100%; border-collapse: collapse;">
-								<tr>
-									<th style="width:55%; text-align:left;">assignment</th>
-									<th style="width:25%; text-align:left;">due</th>
-									<th style="width:30%; text-align:left;">link</th>
-								</tr>
-
-								<tr>
-									<td><strong><em>Revoicing a Chorale for Strings</em></strong></td>
-									<td>next class</td>
-									<td>
-										<a href="https://docs.google.com/document/d/1UNf0h2YWLCebI2b8ZDulPOF21guRcsLVRpbJi8CT2U0/edit?usp=sharing" target="_blank">
-											click here
-										</a>
-									</td>
-								</tr>
-
-								<tr>
-									<td><strong><em>Madvillainy & Timbral Grouping</em></strong></td>
-									<td>in 3 weeks</td>
-									<td>
-										<a href="https://docs.google.com/document/d/1Dcfs8NGsaqfR8a1t-7CEwLZODZkhEqe8i_kP9cZupwQ/edit?usp=sharing" target="_blank">
-											click here
-										</a>
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</section> -->
 
 
 
@@ -1378,7 +1465,7 @@
 
 		<div class="talk-footer" aria-hidden="true">
 			<div class="talk-footer-left">Dr. Louis Goldford</div>
-			<div class="talk-footer-center">Prelude Day: What Are the Modes?</div>
+			<div class="talk-footer-center">Twist the Dial: Same Notes, New Worlds</div>
 			<div class="talk-footer-right">
 				<span id="footer-slide-number">1/103</span>
 			</div>
@@ -1515,7 +1602,93 @@
 				});
 
 				currentAudio = null;
+
+				document.querySelectorAll(".yt-shield").forEach(shield => {
+					ytCommand(shield, "pauseVideo");
+					shield.dataset.playing = "";
 				});
+				});
+
+			// abcjs notation: render once, when its slide is visible (abcjs needs real layout to measure text)
+			const ABC_QPM = 160;  // whole note = 1.5 s
+			let abcSynth = null;
+			let abcTimer = null;
+			let abcButton = null;
+
+			function renderAbcFigures(slide) {
+			if (!slide) return;
+			slide.querySelectorAll(".abc-figure:not([data-rendered])").forEach(fig => {
+				const src = fig.querySelector('script[type="text/vnd.abc"]').textContent;
+				const visualObj = ABCJS.renderAbc(fig, src, {
+					responsive: "resize", staffwidth: 760, paddingtop: 0, paddingbottom: 0, add_classes: true,
+					clickListener: abcElem => playAbcElement(abcElem, visualObj)
+				})[0];
+				visualObj.setUpAudio({ qpm: ABC_QPM });  // attaches midiPitches to each note, for click-to-play
+				fig.abcVisualObj = visualObj;
+				fig.dataset.rendered = "1";
+			});
+			}
+
+			// click a note/chord: play just that event
+			function playAbcElement(abcElem, visualObj) {
+			if (!abcElem.midiPitches) return;
+			ABCJS.synth.playEvent(abcElem.midiPitches, abcElem.midiGraceNotePitches, visualObj.millisecondsPerMeasure(ABC_QPM));
+			}
+
+			// ▶ button: play the whole line, highlighting each note as it sounds
+			function toggleAbcPlayback(button) {
+			const wasPlaying = abcButton === button;
+			stopAbcPlayback();
+			if (wasPlaying) return;
+
+			const fig = button.parentElement.querySelector(".abc-figure");
+			const visualObj = fig.abcVisualObj;
+			if (!visualObj) return;
+
+			abcButton = button;
+			button.textContent = "■";
+			abcSynth = new ABCJS.synth.CreateSynth();
+			abcTimer = new ABCJS.TimingCallbacks(visualObj, {
+				qpm: ABC_QPM,
+				eventCallback: ev => {
+					fig.querySelectorAll(".abcjs-playing").forEach(el => el.classList.remove("abcjs-playing"));
+					if (!ev) { stopAbcPlayback(); return; }
+					ev.elements.forEach(group => group.forEach(el => el.classList.add("abcjs-playing")));
+				}
+			});
+			// browsers start audio suspended; resume inside this click (playEvent does this itself, CreateSynth doesn't)
+			ABCJS.synth.activeAudioContext().resume()
+				.then(() => abcSynth.init({ visualObj: visualObj, millisecondsPerMeasure: visualObj.millisecondsPerMeasure(ABC_QPM), options: {} }))  // options must exist or prime() throws
+				.then(() => abcSynth.prime())
+				.then(() => { abcSynth.start(); abcTimer.start(); });
+			}
+
+			function stopAbcPlayback() {
+			if (abcSynth) abcSynth.stop();
+			if (abcTimer) abcTimer.stop();
+			if (abcButton) abcButton.textContent = "▶";
+			document.querySelectorAll(".abcjs-playing").forEach(el => el.classList.remove("abcjs-playing"));
+			abcSynth = abcTimer = abcButton = null;
+			}
+
+			Reveal.on('ready', event => renderAbcFigures(event.currentSlide));
+			Reveal.on('slidechanged', event => { stopAbcPlayback(); renderAbcFigures(event.currentSlide); });
+			if (Reveal.isReady()) renderAbcFigures(Reveal.getCurrentSlide());
+
+			// YouTube click shield: play/pause via the iframe API so YouTube's own UI never shows
+			function ytCommand(shield, func) {
+			const iframe = shield.parentElement.querySelector("iframe.yt-clean");
+			iframe.contentWindow.postMessage(JSON.stringify({ event: "command", func: func, args: [] }), "*");
+			}
+
+			document.querySelectorAll(".yt-shield").forEach(shield => {
+			shield.addEventListener("click", () => {
+				const playing = shield.dataset.playing === "1";
+				ytCommand(shield, playing ? "pauseVideo" : "playVideo");
+				shield.dataset.playing = playing ? "" : "1";
+				shield.style.backgroundImage = "none";
+			});
+			});
 		</script>
 
 	</body>
