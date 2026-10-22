@@ -60,12 +60,12 @@
 										class="yt-clean"
 										src="https://www.youtube.com/embed/OX1OsNlgS48?enablejsapi=1&rel=0&controls=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1"
 										title="Dies iræ – Gregorian chant"
-										style="position: absolute; inset: 0; width:100%; height:100%; border:none;"
+										style="position: absolute; inset: 0; width:100%; height:100%; max-width:none; max-height:none; border:none;"
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 										referrerpolicy="strict-origin-when-cross-origin"
 									></iframe>
 									<!-- click shield: hides YouTube's overlay UI; click to play/pause -->
-									<div class="yt-shield" style="position: absolute; inset: 0; cursor: pointer; background: url('https://i.ytimg.com/vi/OX1OsNlgS48/hqdefault.jpg') center / cover no-repeat;"></div>
+									<div class="yt-shield" style="position: absolute; inset: 0; z-index: 2; cursor: pointer; background: url('https://i.ytimg.com/vi/OX1OsNlgS48/hqdefault.jpg') center / cover no-repeat;"></div>
 								</div>
 								<p style="font-size: 35%;"><em>source</em>: Verbum Gloriae, “Dies iræ – Secuencia de la Misa de Difuntos”</p>
 							</div>
@@ -337,7 +337,7 @@ K:Ddor
 						</div>
 						<!-- RIGHT: rotating dial (C at 12 o'clock when unturned) -->
 						<div style="flex: 0 0 36%;">
-							<svg class="mode-dial" viewBox="0 0 320 340" style="width:100%; max-width:360px; height:auto; font-family: inherit;" role="img" aria-label="Rotating circle of the seven white-key notes; the note at the top is the final">
+							<svg class="mode-dial" viewBox="0 0 320 340" style="width:100%; max-width:300px; height:auto; font-family: inherit;" role="img" aria-label="Rotating circle of the seven white-key notes; the note at the top is the final">
 								<!-- fixed pointer: whatever sits under it is the final -->
 								<polygon points="160,24 152,10 168,10" fill="#4ea1ff"/>
 								<g class="dial-rotor">
@@ -386,6 +386,47 @@ K:Ddor
 								</g>
 								<text class="dial-caption" x="160" y="330" text-anchor="middle" font-size="20" fill="#333">C Ionian · W W H W W W H</text>
 							</svg>
+							<!-- current mode's scale, redrawn by updateModeDial on each twist -->
+							<div style="display: flex; align-items: center; gap: 0.75rem;">
+								<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this mode">▶</button>
+								<div class="abc-figure mode-scale" data-rendered="1" style="flex: 1;"></div>
+							</div>
+						</div>
+					</div>
+				</section>
+				</section>
+
+				<section>
+				<section class="centered-media-slide">
+					<div class="regular-text --onum">
+						<div style="padding-bottom: 15px;">
+							<h4>So What <em>(Miles Davis, 1959)</em></h4>
+						</div>
+						<div class="media-row">
+							<div class="video-col">
+								<div style="position: relative; width:100%; aspect-ratio: 16 / 9;">
+									<iframe
+										class="yt-clean"
+										src="https://www.youtube.com/embed/FPv9-rWITrM?enablejsapi=1&rel=0&controls=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1&start=32"
+										title="So What – Miles Davis (animated sheet music)"
+										style="position: absolute; inset: 0; width:100%; height:100%; max-width:none; max-height:none; border:none;"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										referrerpolicy="strict-origin-when-cross-origin"
+									></iframe>
+									<!-- click shield: hides YouTube's overlay UI; click to play/pause (z-index beats reveal.css's iframe z-index: 1) -->
+									<div class="yt-shield" style="position: absolute; inset: 0; z-index: 2; cursor: pointer; background: url('https://i.ytimg.com/vi/FPv9-rWITrM/maxresdefault.jpg') center / cover no-repeat;"></div>
+								</div>
+								<p style="font-size: 35%;"><em>source</em>: dancohen, “Animated Sheet Music: ‘So What’ by Miles Davis”</p>
+							</div>
+							<div class="quote-col" style="font-size: 55%;">
+								<ul>
+									<li class="fragment">For centuries, these few materials have given composers a <strong>fruitful toolkit</strong>.</li>
+									<li class="fragment">Amazingly, centuries after the <em>Dies irae</em>, the <strong style="color:#4ea1ff;">Dorian</strong> mode inspired jazz greats <strong>Miles Davis</strong> (trumpet) and <strong>John Coltrane</strong> (tenor sax).</li>
+									<li class="fragment">From <em>Kind of Blue</em>, with Cannonball Adderley, Bill Evans, Paul Chambers, and Jimmy Cobb.</li>
+									<li class="fragment">The form: 16 bars of <strong style="color:#4ea1ff;">D Dorian</strong>, 8 bars a half step up in E♭ Dorian, then 8 more in D.</li>
+									<li class="fragment">Listen for a stable <strong>home</strong> on D, and wide-open space to improvise.</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</section>
@@ -1693,6 +1734,7 @@ K:Ddor
 
 			// abcjs notation: render once, when its slide is visible (abcjs needs real layout to measure text)
 			const ABC_QPM = 160;  // whole note = 1.5 s
+			const MODE_SCALE_QPM = 220;  // dial scales: whole note ≈ 1.1 s
 			let abcSynth = null;
 			let abcTimer = null;
 			let abcButton = null;
@@ -1700,21 +1742,25 @@ K:Ddor
 			function renderAbcFigures(slide) {
 			if (!slide) return;
 			slide.querySelectorAll(".abc-figure:not([data-rendered])").forEach(fig => {
-				const src = fig.querySelector('script[type="text/vnd.abc"]').textContent;
-				const visualObj = ABCJS.renderAbc(fig, src, {
-					responsive: "resize", staffwidth: 760, paddingtop: 0, paddingbottom: 0, add_classes: true,
-					clickListener: abcElem => playAbcElement(abcElem, visualObj)
-				})[0];
-				visualObj.setUpAudio({ qpm: ABC_QPM });  // attaches midiPitches to each note, for click-to-play
-				fig.abcVisualObj = visualObj;
-				fig.dataset.rendered = "1";
+				renderAbcInto(fig, fig.querySelector('script[type="text/vnd.abc"]').textContent);
 			});
 			}
 
+			function renderAbcInto(fig, src, staffwidth = 760, qpm = ABC_QPM) {
+			const visualObj = ABCJS.renderAbc(fig, src, {
+				responsive: "resize", staffwidth: staffwidth, paddingtop: 0, paddingbottom: 0, add_classes: true,
+				clickListener: abcElem => playAbcElement(abcElem, visualObj, qpm)
+			})[0];
+			visualObj.setUpAudio({ qpm: qpm });  // attaches midiPitches to each note, for click-to-play
+			fig.abcVisualObj = visualObj;
+			fig.abcQpm = qpm;
+			fig.dataset.rendered = "1";
+			}
+
 			// click a note/chord: play just that event
-			function playAbcElement(abcElem, visualObj) {
+			function playAbcElement(abcElem, visualObj, qpm) {
 			if (!abcElem.midiPitches) return;
-			ABCJS.synth.playEvent(abcElem.midiPitches, abcElem.midiGraceNotePitches, visualObj.millisecondsPerMeasure(ABC_QPM));
+			ABCJS.synth.playEvent(abcElem.midiPitches, abcElem.midiGraceNotePitches, visualObj.millisecondsPerMeasure(qpm));
 			}
 
 			// ▶ button: play the whole line, highlighting each note as it sounds
@@ -1725,13 +1771,14 @@ K:Ddor
 
 			const fig = button.parentElement.querySelector(".abc-figure");
 			const visualObj = fig.abcVisualObj;
+			const qpm = fig.abcQpm;
 			if (!visualObj) return;
 
 			abcButton = button;
 			button.textContent = "■";
 			abcSynth = new ABCJS.synth.CreateSynth();
 			abcTimer = new ABCJS.TimingCallbacks(visualObj, {
-				qpm: ABC_QPM,
+				qpm: qpm,
 				eventCallback: ev => {
 					fig.querySelectorAll(".abcjs-playing").forEach(el => el.classList.remove("abcjs-playing"));
 					if (!ev) { stopAbcPlayback(); return; }
@@ -1740,7 +1787,7 @@ K:Ddor
 			});
 			// browsers start audio suspended; resume inside this click (playEvent does this itself, CreateSynth doesn't)
 			ABCJS.synth.activeAudioContext().resume()
-				.then(() => abcSynth.init({ visualObj: visualObj, millisecondsPerMeasure: visualObj.millisecondsPerMeasure(ABC_QPM), options: {} }))  // options must exist or prime() throws
+				.then(() => abcSynth.init({ visualObj: visualObj, millisecondsPerMeasure: visualObj.millisecondsPerMeasure(qpm), options: {} }))  // options must exist or prime() throws
 				.then(() => abcSynth.prime())
 				.then(() => { abcSynth.start(); abcTimer.start(); });
 			}
@@ -1772,6 +1819,26 @@ K:Ddor
 			const rotated = WHITE_PCS.slice(i).concat(WHITE_PCS.slice(0, i).map(pc => pc + 12));
 			const steps = rotated.map((pc, k) => ((k < 6 ? rotated[k + 1] : rotated[0] + 12) - pc) === 1 ? "H" : "W");
 			dial.querySelector(".dial-caption").textContent = MODE_NAMES[final] + " · " + steps.join(" ");  // en spaces: plain spaces collapse in this font
+
+			// redraw the scale under the dial, final to final
+			const fig = slide.querySelector(".mode-scale");
+			const src = modeScaleAbc(final);
+			if (fig && fig.dataset.abcSrc !== src) {
+				stopAbcPlayback();
+				renderAbcInto(fig, src, 240, MODE_SCALE_QPM);  // narrow column: small staffwidth keeps noteheads large
+				fig.dataset.abcSrc = src;
+			}
+			}
+
+			// ABC for the white-key scale from `final` up an octave (uppercase = octave 4, lowercase = octave 5)
+			function modeScaleAbc(final) {
+			const start = WHITE_PCS.indexOf(final);
+			const notes = [];
+			for (let k = 0; k < 8; k++) {
+				const letter = "CDEFGAB"[(start + k) % 7];
+				notes.push(start + k >= 7 ? letter.toLowerCase() : letter);
+			}
+			return "X:1\nL:1/1\nK:C\n" + notes.join(" ") + " |]";
 			}
 
 			Reveal.on('fragmentshown', () => updateModeDial(Reveal.getCurrentSlide()));
