@@ -17,6 +17,15 @@
 		<style>
 			/* abcjs: note currently sounding during ▶ playback */
 			.abc-figure .abcjs-playing { fill: #4ea1ff; stroke: #4ea1ff; }
+
+			/* mode dial: rotor turns by --turn; labels counter-rotate to stay upright */
+			.mode-dial .dial-rotor { transform-origin: 160px 160px; transform: rotate(var(--turn, 0deg)); transition: transform 0.9s ease; }
+			.mode-dial .dial-label { transform-box: fill-box; transform-origin: center; transform: rotate(calc(-1 * var(--turn, 0deg))); transition: transform 0.9s ease; }
+			.mode-dial .dial-note circle { fill: #d9ebff; transition: fill 0.4s; }
+			.mode-dial .dial-note text { fill: #333; }
+			.mode-dial .dial-note.is-final circle { fill: #4ea1ff; }
+			.mode-dial .dial-note.is-final text { fill: #fff; font-weight: bold; }
+			.mode-list li.is-current { color: #4ea1ff; }
 		</style>
 
 		<!-- Theme used for syntax highlighted code -->
@@ -305,6 +314,79 @@ K:Ddor
 						</div>
 						<p class="fragment" data-fragment-index="3" style="font-size: 60%; text-align:left;">Move the final and you move the <strong>center of gravity</strong>: every note and chord now leans toward <strong style="color:#4ea1ff;">D</strong>, not C. Same pieces, a <em>whole new world</em>.</p>
 						<p class="fragment" data-fragment-index="4" style="font-size: 60%; text-align:left;">Dorian’s fingerprint: a <strong>minor</strong> i, but a <strong>major</strong> IV (G–B–D), thanks to <strong style="color:#4ea1ff;">B♮</strong>, the raised 6th.</p>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">The Swiss Army Knife</h4>
+					<div class="regular-text" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
+						<!-- LEFT: definition + modes; each mode fragment twists the dial (see updateModeDial below) -->
+						<div style="flex: 0 0 55%; text-align: left;">
+							<p style="font-size: 60%;">Few materials, endless tools: just <strong>move the final</strong>, and the same pitches <em>slice, dice, and do it all!</em></p>
+							<p class="fragment" style="font-size: 60%;"><strong>Modes</strong> are thus the family of scales built on the <em>same collection of pitches</em>, each with a <em>different final</em>. They are modes <em>of one another</em>, not isolated scales.</p>
+							<ul class="mode-list" style="font-size: 55%; list-style: none; margin-left: 0;">
+								<li class="fragment" data-final="0"><strong>C</strong> Ionian <em>(major)</em></li>
+								<li class="fragment" data-final="2"><strong>D</strong> Dorian</li>
+								<li class="fragment" data-final="4"><strong>E</strong> Phrygian</li>
+								<li class="fragment" data-final="5"><strong>F</strong> Lydian</li>
+								<li class="fragment" data-final="7"><strong>G</strong> Mixolydian</li>
+								<li class="fragment" data-final="9"><strong>A</strong> Aeolian <em>(natural minor)</em></li>
+								<li class="fragment" data-final="11"><strong>B</strong> Locrian</li>
+							</ul>
+							<p class="fragment" style="font-size: 60%;"><em>Twist the dial</em>: same notes, new sense of <strong>key</strong>, new center of <strong>gravity</strong>, a <em>whole new world</em>.</p>
+						</div>
+						<!-- RIGHT: rotating dial (C at 12 o'clock when unturned) -->
+						<div style="flex: 0 0 36%;">
+							<svg class="mode-dial" viewBox="0 0 320 340" style="width:100%; max-width:360px; height:auto; font-family: inherit;" role="img" aria-label="Rotating circle of the seven white-key notes; the note at the top is the final">
+								<!-- fixed pointer: whatever sits under it is the final -->
+								<polygon points="160,24 152,10 168,10" fill="#4ea1ff"/>
+								<g class="dial-rotor">
+									<circle cx="160" cy="160" r="112" fill="none" stroke="#333" stroke-width="1" opacity="0.35"/>
+									<polygon points="160,48 257,104 257,216 216,257 104,257 48,160 104,63" fill="#4ea1ff" fill-opacity="0.12" stroke="#4ea1ff" stroke-width="2"/>
+									<text class="dial-label" x="196" y="104" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">W</text>
+									<text class="dial-label" x="232" y="166" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">W</text>
+									<text class="dial-label" x="210.9" y="217" text-anchor="middle" font-size="18" font-weight="bold" fill="#4ea1ff">H</text>
+									<text class="dial-label" x="160" y="238" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">W</text>
+									<text class="dial-label" x="97.6" y="202" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">W</text>
+									<text class="dial-label" x="97.6" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">W</text>
+									<text class="dial-label" x="141.4" y="96" text-anchor="middle" font-size="18" font-weight="bold" fill="#4ea1ff">H</text>
+									<g class="dial-note" data-pc="0">
+										<circle cx="160" cy="48" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="160" y="54" text-anchor="middle" font-size="17">C</text>
+									</g>
+									<circle cx="216" cy="63" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<g class="dial-note" data-pc="2">
+										<circle cx="257" cy="104" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="257" y="110" text-anchor="middle" font-size="17">D</text>
+									</g>
+									<circle cx="272" cy="160" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<g class="dial-note" data-pc="4">
+										<circle cx="257" cy="216" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="257" y="222" text-anchor="middle" font-size="17">E</text>
+									</g>
+									<g class="dial-note" data-pc="5">
+										<circle cx="216" cy="257" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="216" y="263" text-anchor="middle" font-size="17">F</text>
+									</g>
+									<circle cx="160" cy="272" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<g class="dial-note" data-pc="7">
+										<circle cx="104" cy="257" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="104" y="263" text-anchor="middle" font-size="17">G</text>
+									</g>
+									<circle cx="63" cy="216" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<g class="dial-note" data-pc="9">
+										<circle cx="48" cy="160" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="48" y="166" text-anchor="middle" font-size="17">A</text>
+									</g>
+									<circle cx="63" cy="104" r="5" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+									<g class="dial-note" data-pc="11">
+										<circle cx="104" cy="63" r="16" stroke="#333" stroke-width="1.5"/>
+										<text class="dial-label" x="104" y="69" text-anchor="middle" font-size="17">B</text>
+									</g>
+								</g>
+								<text class="dial-caption" x="160" y="330" text-anchor="middle" font-size="20" fill="#333">C Ionian · W W H W W W H</text>
+							</svg>
+						</div>
 					</div>
 				</section>
 				</section>
@@ -1670,6 +1752,33 @@ K:Ddor
 			document.querySelectorAll(".abcjs-playing").forEach(el => el.classList.remove("abcjs-playing"));
 			abcSynth = abcTimer = abcButton = null;
 			}
+
+			// mode dial: the last visible [data-final] fragment sets which note is twisted to the top
+			const WHITE_PCS = [0, 2, 4, 5, 7, 9, 11];
+			const MODE_NAMES = { 0: "C Ionian", 2: "D Dorian", 4: "E Phrygian", 5: "F Lydian", 7: "G Mixolydian", 9: "A Aeolian", 11: "B Locrian" };
+
+			function updateModeDial(slide) {
+			const dial = slide && slide.querySelector(".mode-dial");
+			if (!dial) return;
+			const shown = slide.querySelectorAll(".mode-list .fragment.visible[data-final]");
+			const current = shown[shown.length - 1];
+			const final = current ? Number(current.dataset.final) : 0;
+
+			dial.style.setProperty("--turn", (-30 * final) + "deg");
+			dial.querySelectorAll(".dial-note").forEach(n => n.classList.toggle("is-final", Number(n.dataset.pc) === final));
+			slide.querySelectorAll(".mode-list li").forEach(li => li.classList.toggle("is-current", li === current));
+
+			const i = WHITE_PCS.indexOf(final);
+			const rotated = WHITE_PCS.slice(i).concat(WHITE_PCS.slice(0, i).map(pc => pc + 12));
+			const steps = rotated.map((pc, k) => ((k < 6 ? rotated[k + 1] : rotated[0] + 12) - pc) === 1 ? "H" : "W");
+			dial.querySelector(".dial-caption").textContent = MODE_NAMES[final] + " · " + steps.join(" ");  // en spaces: plain spaces collapse in this font
+			}
+
+			Reveal.on('fragmentshown', () => updateModeDial(Reveal.getCurrentSlide()));
+			Reveal.on('fragmenthidden', () => updateModeDial(Reveal.getCurrentSlide()));
+			Reveal.on('slidechanged', event => updateModeDial(event.currentSlide));
+			Reveal.on('ready', event => updateModeDial(event.currentSlide));
+			if (Reveal.isReady()) updateModeDial(Reveal.getCurrentSlide());
 
 			Reveal.on('ready', event => renderAbcFigures(event.currentSlide));
 			Reveal.on('slidechanged', event => { stopAbcPlayback(); renderAbcFigures(event.currentSlide); });
