@@ -429,6 +429,49 @@ K:Ddor
 				</section>
 
 				<section>
+				<section class="--onum">
+					<h4 style="text-align:left;">Love Ridden <em>(Fiona Apple)</em></h4>
+					<p style="font-size: 60%; text-align:left;"><strong style="color:#4ea1ff;">E Phrygian</strong>: white keys, home on E. Its signature is the <strong>half step above home</strong>: F♮ leaning down to E.</p>
+					<div class="regular-text">
+						<!-- piano intro, mm. 1–8; data-qpm = beats per minute in the meter's beat (6/8 → dotted quarter): 77 ≈ quarter = 115 -->
+						<div class="fragment" data-fragment-index="1" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this excerpt">▶</button>
+							<div class="abc-figure" data-qpm="77" style="flex: 1;"><script type="text/vnd.abc">
+X:5
+M:6/8
+L:1/8
+K:Em
+%%staves {RH LH}
+V:RH clef=bass
+V:LH clef=bass
+[V:RH] "Em"zB,,E, G,E,B,, | "F"[=F,A,]2 F, A, F,2 | "C"[C,E,]6- | [C,E,]6 | "Em"zB,,E, G,E,B,, | "B7/D#"[^D,A,]2 D, A, D,2 | "C"[C,E,]6- | [C,E,]6 |]
+[V:LH] E,,6 | =F,,6 | C,,6- | C,,6 | E,,6 | ^D,,6 | C,,6- | C,,6 |]
+</script></div>
+						</div>
+						<p class="fragment" data-fragment-index="2" style="font-size: 60%; text-align:left;">Bars 1–4: E minor, then <strong>F</strong> — the chord built on the <strong style="color:#4ea1ff;">♭2</strong> — sinking back toward E. Pure Phrygian color.</p>
+						<p class="fragment" data-fragment-index="3" style="font-size: 60%; text-align:left;">Bars 5–8: the F becomes <strong>B7/D♯</strong>, and a <strong>D♯ leading tone</strong> pulls <em>up</em> to E. Does that altered note change our musical world, or just pull us toward home?</p>
+					</div>
+				</section>
+				</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<section>
 					<div class="regular-text --onum">
 						<h4>Excerpts</h4>
 						<figure id="gma" style="position: fixed; top: 0px; right: 0px;">
@@ -1733,7 +1776,7 @@ K:Ddor
 			function renderAbcFigures(slide) {
 			if (!slide) return;
 			slide.querySelectorAll(".abc-figure:not([data-rendered])").forEach(fig => {
-				renderAbcInto(fig, fig.querySelector('script[type="text/vnd.abc"]').textContent);
+				renderAbcInto(fig, fig.querySelector('script[type="text/vnd.abc"]').textContent, 760, Number(fig.dataset.qpm) || ABC_QPM);
 			});
 			}
 
@@ -1742,7 +1785,7 @@ K:Ddor
 				responsive: "resize", staffwidth: staffwidth, paddingtop: 0, paddingbottom: 0, add_classes: true,
 				clickListener: abcElem => playAbcElement(abcElem, visualObj, qpm)
 			})[0];
-			visualObj.setUpAudio({ qpm: qpm });  // attaches midiPitches to each note, for click-to-play
+			visualObj.setUpAudio({ qpm: qpm, chordsOff: true });  // attaches midiPitches to each note, for click-to-play; chordsOff: chord symbols are labels, not auto-accompaniment
 			fig.abcVisualObj = visualObj;
 			fig.abcQpm = qpm;
 			fig.dataset.rendered = "1";
@@ -1778,7 +1821,7 @@ K:Ddor
 			});
 			// browsers start audio suspended; resume inside this click (playEvent does this itself, CreateSynth doesn't)
 			ABCJS.synth.activeAudioContext().resume()
-				.then(() => abcSynth.init({ visualObj: visualObj, millisecondsPerMeasure: visualObj.millisecondsPerMeasure(qpm), options: {} }))  // options must exist or prime() throws
+				.then(() => abcSynth.init({ visualObj: visualObj, millisecondsPerMeasure: visualObj.millisecondsPerMeasure(qpm), options: { chordsOff: true } }))  // options must exist or prime() throws
 				.then(() => abcSynth.prime())
 				.then(() => { abcSynth.start(); abcTimer.start(); });
 			}
