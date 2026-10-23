@@ -15,7 +15,13 @@
 		<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
 		<style>
-			/* abcjs: note currently sounding during ▶ playback */
+			/* Ex. 333: chords 1, 4, 7, 10 (measures 0, 3, 6, 9) are the same sound, a major third apart */
+			.ex333 .abcjs-note.abcjs-mm0, .ex333 .abcjs-note.abcjs-mm3, .ex333 .abcjs-note.abcjs-mm6, .ex333 .abcjs-note.abcjs-mm9 { fill: #43b56f; stroke: #43b56f; }
+
+			/* Mode 3 triads: the root voice (the scale itself) in green */
+			.triad-roots .chord-root { fill: #43b56f; stroke: #43b56f; }
+
+			/* abcjs: note currently sounding during ▶ playback (after the rules above, so it wins while playing) */
 			.abc-figure .abcjs-playing { fill: #4ea1ff; stroke: #4ea1ff; }
 
 			/* mode dial: rotor turns by --turn; labels counter-rotate to stay upright */
@@ -26,6 +32,12 @@
 			.mode-dial .dial-note.is-final circle { fill: #4ea1ff; }
 			.mode-dial .dial-note.is-final text { fill: #fff; font-weight: bold; }
 			.mode-list li.is-current { color: #4ea1ff; }
+
+			/* transposition dial: note names stay put; the collection turns by --turn */
+			.transpose-dial .tdial-rotor { transform-origin: 170px 170px; transform: rotate(var(--turn, 0deg)); transition: transform 0.9s ease; }
+			.transpose-dial .tdial-label { transform-box: fill-box; transform-origin: center; transform: rotate(calc(-1 * var(--turn, 0deg))); transition: transform 0.9s ease; }
+			.t-list li.is-current { color: #4ea1ff; }
+			.lnum, .transpose-dial .tdial-caption { font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; }  /* the deck's oldstyle 0/1 read as o/I */
 		</style>
 
 		<!-- Theme used for syntax highlighted code -->
@@ -634,6 +646,238 @@ w: On-ly kiss-es on the cheek from now on _ _ And in a lit-tle while _ we'll on-
 
 
 
+
+				<section>
+				<section class="--onum">
+					<h4 style="text-align:left;">Modes of Limited Transposition</h4>
+					<div class="regular-text" style="text-align:left;">
+						<p style="font-size: 60%;"><strong>Olivier Messiaen</strong>: French composer, organist, catalogued a special family of scales.</p>
+						<p class="fragment" style="font-size: 60%;">So far, we've looked some of the <strong>church modes</strong>: one collection (white keys), many finals. Twist the dial, and a <em>new note</em> becomes home base.</p>
+						<p class="fragment" style="font-size: 60%;"><strong>Messiaen’s modes</strong>: scales are built from a <em>repeating pattern</em>. Transpose a scale, and very soon you land back on the <em>very same notes</em>.</p>
+						<p class="fragment" style="font-size: 60%;">A major scale has 12 different transpositions; you can play the same scale in 12 different keys. But Messiaen's scales have only a few: hence <strong>limited transposition</strong>.</p>
+						<p class="fragment" style="font-size: 60%;">With no single note in charge, <strong style="color:#4ea1ff;">home</strong> becomes ambiguous: <em>a new kind of world</em>...</p>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">Mode 3 on the Dial</h4>
+					<div class="regular-text" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
+						<!-- LEFT: each [data-t] fragment transposes the collection by t half steps (see updateTransposeDial below) -->
+						<div style="flex: 0 0 55%; text-align: left;">
+							<p style="font-size: 60%;"><strong>Messiaen Mode 3</strong>: a simple 3-note pattern,<br><strong>W–H–H</strong> <span class="lnum">(2–1–1)</span>, transposed three times:<br><strong style="color:#4ea1ff;">C D E♭</strong>, <strong style="color:#e8a33d;">E F♯ G</strong>, <strong style="color:#43b56f;">A♭ B♭ B</strong> — <strong>9 notes total</strong>.</p>
+							<ul class="t-list" style="font-size: 55%; list-style: none; margin-left: 0;">
+								<li class="fragment" data-fragment-index="1" data-t="1"><strong>Up a half step:</strong> 6 notes stay, 3 swap</li>
+								<li class="fragment" data-fragment-index="2" data-t="2"><strong>Up again:</strong> 6 stay, 3 swap</li>
+								<li class="fragment" data-fragment-index="3" data-t="3"><strong>And again:</strong> 6 stay, 3 swap</li>
+								<li class="fragment" data-fragment-index="4" data-t="4"><strong>Once more and…</strong> <em>we’re back where we started!</em></li>
+							</ul>
+							<!-- <p class="fragment" data-fragment-index="5" style="font-size: 60%;">What tells them apart is the <strong>3 notes left out</strong>, always an augmented triad: <span style="white-space: nowrap;">C♯–F–A,</span> <span style="white-space: nowrap;">D–F♯–B♭,</span> <span style="white-space: nowrap;">E♭–G–B,</span> <span style="white-space: nowrap;">C–E–A♭.</span> Only <strong>4</strong> exist, so only <strong>4</strong> transpositions (a major scale has 12).</p> -->
+						</div>
+						<!-- RIGHT: note names fixed; the blue collection rotates; dashed outline = starting position -->
+						<div style="flex: 0 0 36%;">
+							<svg class="transpose-dial" viewBox="0 0 340 370" style="width:100%; max-width:300px; height:auto; font-family: inherit;" role="img" aria-label="Messiaen Mode 3 on a circle of twelve notes, drawn as three colored whole-half-half groups; the collection rotates by half steps while note names stay fixed">
+								<circle cx="170" cy="170" r="110" fill="none" stroke="#333" stroke-width="1" opacity="0.35"/>
+								<circle cx="170" cy="60" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="170" y="38" text-anchor="middle" font-size="16" fill="#333">C</text>
+								<circle cx="225" cy="74.7" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="239" y="56.5" text-anchor="middle" font-size="16" fill="#333">C♯</text>
+								<circle cx="265.3" cy="115" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="289.5" y="107" text-anchor="middle" font-size="16" fill="#333">D</text>
+								<circle cx="280" cy="170" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="308" y="176" text-anchor="middle" font-size="16" fill="#333">E♭</text>
+								<circle cx="265.3" cy="225" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="289.5" y="245" text-anchor="middle" font-size="16" fill="#333">E</text>
+								<circle cx="225" cy="265.3" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="239" y="295.5" text-anchor="middle" font-size="16" fill="#333">F</text>
+								<circle cx="170" cy="280" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="170" y="314" text-anchor="middle" font-size="16" fill="#333">F♯</text>
+								<circle cx="115" cy="265.3" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="101" y="295.5" text-anchor="middle" font-size="16" fill="#333">G</text>
+								<circle cx="74.7" cy="225" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="50.5" y="245" text-anchor="middle" font-size="16" fill="#333">A♭</text>
+								<circle cx="60" cy="170" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="32" y="176" text-anchor="middle" font-size="16" fill="#333">A</text>
+								<circle cx="74.7" cy="115" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="50.5" y="107" text-anchor="middle" font-size="16" fill="#333">B♭</text>
+								<circle cx="115" cy="74.7" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+								<text x="101" y="56.5" text-anchor="middle" font-size="16" fill="#333">B</text>
+								<!-- ghost of the starting position (T0): the rotor lands back on it at T4 -->
+								<polygon points="170,60 265.3,115 280,170 265.3,225 170,280 115,265.3 74.7,225 74.7,115 115,74.7" fill="none" stroke="#333" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.5"/>
+								<g class="tdial-rotor">
+									<polygon points="170,60 265.3,115 280,170 265.3,225 170,280 115,265.3 74.7,225 74.7,115 115,74.7" fill="#4ea1ff" fill-opacity="0.10" stroke="none"/>
+									<!-- three identical W-H-H groups, one color each -->
+									<polyline points="170,60 265.3,115 280,170 265.3,225" fill="none" stroke="#4ea1ff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+									<text class="tdial-label" x="210" y="107" text-anchor="middle" font-size="16" font-weight="bold" fill="#4ea1ff">W</text>
+									<text class="tdial-label" x="247.3" y="155" text-anchor="middle" font-size="16" font-weight="bold" fill="#4ea1ff">H</text>
+									<text class="tdial-label" x="247.3" y="197" text-anchor="middle" font-size="16" font-weight="bold" fill="#4ea1ff">H</text>
+									<polyline points="265.3,225 170,280 115,265.3 74.7,225" fill="none" stroke="#e8a33d" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+									<text class="tdial-label" x="210" y="245" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8a33d">W</text>
+									<text class="tdial-label" x="149.3" y="253" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8a33d">H</text>
+									<text class="tdial-label" x="113.4" y="233" text-anchor="middle" font-size="16" font-weight="bold" fill="#e8a33d">H</text>
+									<polyline points="74.7,225 74.7,115 115,74.7 170,60" fill="none" stroke="#43b56f" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+									<text class="tdial-label" x="90" y="176" text-anchor="middle" font-size="16" font-weight="bold" fill="#43b56f">W</text>
+									<text class="tdial-label" x="113.4" y="119" text-anchor="middle" font-size="16" font-weight="bold" fill="#43b56f">H</text>
+									<text class="tdial-label" x="149.3" y="99" text-anchor="middle" font-size="16" font-weight="bold" fill="#43b56f">H</text>
+									<circle cx="170" cy="60" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="265.3" cy="115" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="280" cy="170" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="265.3" cy="225" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="170" cy="280" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="115" cy="265.3" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="74.7" cy="225" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="74.7" cy="115" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+									<circle cx="115" cy="74.7" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+								</g>
+								<text class="tdial-caption" x="170" y="362" text-anchor="middle" font-size="18" fill="#333">T0 · C D E♭ E F♯ G A♭ B♭ B</text>
+							</svg>
+							<div style="display: flex; align-items: center; gap: 0.75rem;">
+								<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this transposition">▶</button>
+								<div class="abc-figure transpose-scale" data-rendered="1" style="flex: 1;"></div>
+							</div>
+							<!-- appears with the T4 fragment and stays through the end of the slide -->
+							<p class="fragment" data-fragment-index="4" style="font-size: 40%; text-align: center; margin: 0.6em auto 0; padding: 0.35em 0.7em; border: 1.5px solid #4ea1ff; border-radius: 6px; background: rgba(78, 161, 255, 0.08); max-width: 90%;">Same 9 notes as T0, rotated to start on <strong>E</strong>.</p>
+						</div>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">A Musical Palindrome</h4>
+					<div class="regular-text" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
+						<div style="flex: 0 0 55%; text-align: left;">
+							<p style="font-size: 60%;">Count Mode 3 in half steps starting from E♭:</p>
+							<p style="font-size: 90%; letter-spacing: 0.25em; white-space: nowrap; font-variant-numeric: lining-nums; font-feature-settings: 'lnum' 1; margin: 0.2em 0;">1 2 1 1 <strong style="color:#4ea1ff;">2</strong> 1 1 2 1</p>
+							<div class="fragment" data-fragment-index="1">
+								<p style="font-size: 60%;">Same forwards and backwards, just like:</p>
+								<p style="font-size: 90%; letter-spacing: 0.25em; white-space: nowrap; margin: 0.2em 0;">R A C <strong style="color:#4ea1ff;">E</strong> C A R</p>
+							</div>
+							<p class="fragment" data-fragment-index="2" style="font-size: 60%;">On the dial, it’s a 3-bladed <strong>pinwheel</strong>:<br>turn it a third of the way around (C <em>to</em> E <em>to</em> A♭) <em>and it looks exactly the same!</em></p>
+							<p class="fragment" data-fragment-index="3" style="font-size: 60%;">Messiaen called this “<em>the charm of impossibilities</em>.”</p>
+						</div>
+						<div class="fragment" data-fragment-index="2" style="flex: 0 0 36%;">
+						<svg viewBox="0 0 340 340" style="width:100%; max-width:300px; height:auto; font-family: inherit;" role="img" aria-label="Mode 3 drawn on the note circle as three identical colored blades">
+							<circle cx="170" cy="170" r="110" fill="none" stroke="#333" stroke-width="1" opacity="0.35"/>
+							<polygon points="170,60 265.3,225 74.7,225" fill="none" stroke="#333" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.5"/>
+							<polygon points="170,170 170,60 265.3,115 280,170 265.3,225" fill="#4ea1ff" fill-opacity="0.18" stroke="#4ea1ff" stroke-width="2.5" stroke-linejoin="round"/>
+							<polygon points="170,170 265.3,225 170,280 115,265.3 74.7,225" fill="#e8a33d" fill-opacity="0.18" stroke="#e8a33d" stroke-width="2.5" stroke-linejoin="round"/>
+							<polygon points="170,170 74.7,225 74.7,115 115,74.7 170,60" fill="#43b56f" fill-opacity="0.18" stroke="#43b56f" stroke-width="2.5" stroke-linejoin="round"/>
+							<circle cx="170" cy="60" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="170" y="38" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">C</text>
+							<circle cx="225" cy="74.7" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+							<text x="239" y="56.5" text-anchor="middle" font-size="16" fill="#333">C♯</text>
+							<circle cx="265.3" cy="115" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="289.5" y="107" text-anchor="middle" font-size="16" fill="#333">D</text>
+							<circle cx="280" cy="170" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="308" y="176" text-anchor="middle" font-size="16" fill="#333">E♭</text>
+							<circle cx="265.3" cy="225" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="289.5" y="245" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">E</text>
+							<circle cx="225" cy="265.3" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+							<text x="239" y="295.5" text-anchor="middle" font-size="16" fill="#333">F</text>
+							<circle cx="170" cy="280" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="170" y="314" text-anchor="middle" font-size="16" fill="#333">F♯</text>
+							<circle cx="115" cy="265.3" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="101" y="295.5" text-anchor="middle" font-size="16" fill="#333">G</text>
+							<circle cx="74.7" cy="225" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="50.5" y="245" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">A♭</text>
+							<circle cx="60" cy="170" r="4" fill="none" stroke="#333" stroke-width="1" opacity="0.4"/>
+							<text x="32" y="176" text-anchor="middle" font-size="16" fill="#333">A</text>
+							<circle cx="74.7" cy="115" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="50.5" y="107" text-anchor="middle" font-size="16" fill="#333">B♭</text>
+							<circle cx="115" cy="74.7" r="9" fill="#fff" stroke="#333" stroke-width="1.5"/>
+							<text x="101" y="56.5" text-anchor="middle" font-size="16" fill="#333">B</text>
+						</svg>
+						</div>
+					</div>
+				</section>
+
+				<section class="--onum">
+					<h4 style="text-align:left;">Chords in Mode 3</h4>
+					<p style="font-size: 65%; text-align:left;">Build a triad on each step, using only the mode’s 9 notes.</p>
+					<div class="regular-text">
+						<!-- invisible barlines [|] reset accidentals between notes, so each note's accidental stands alone -->
+						<!-- hidden for now: the scale alone (the triad line below shows it in green)
+						<div class="fragment" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure" style="flex: 1;"><script type="text/vnd.abc">
+X:12
+L:1/1
+K:C
+"_W"C [|] "_H"D [|] "_H"_E [|] "_W"=E [|] "_H"^F [|] "_H"G [|] "_W"_A [|] "_H"_B [|] "_H"=B [|] c |]
+</script></div>
+						</div>
+						-->
+						<!-- .triad-roots: after rendering, colorChordRoots() turns each chord's lowest note (the scale) green -->
+						<div class="fragment" data-fragment-index="1" style="display: flex; align-items: center; gap: 1rem;">
+							<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play this line">▶</button>
+							<div class="abc-figure triad-roots" style="flex: 1;"><script type="text/vnd.abc">
+X:13
+L:1/1
+K:C
+"^C"[CEG] [|] "^D+"[D^F_B] [|] "^E♭"[_EG_B] [|] "^E"[=E^G=B] [|] "^F♯+"[^F_Bd] [|] "^G"[G=Bd] [|] "^A♭"[_Ac_e] [|] "^B♭+"[_Bd^f] [|] "^B"[=B^d^f] |]
+</script></div>
+						</div>
+						<!-- Messiaen, Technique of My Musical Language, Ex. 333: "Mode 3, first transposition, in parallel succession of chords
+						     (each voice realizes the entire mode starting on a different degree)". Five voices climb the mode one step at a time
+						     to the octave (chord 10), then retrace their steps; x = invisible rest in the bass once every voice is in the treble -->
+						<div class="fragment" data-fragment-index="2">
+							<div style="display: flex; align-items: center; gap: 1rem;">
+								<button class="mini-audio-button abc-play" onclick="toggleAbcPlayback(this)" title="Play Messiaen's Ex. 333">▶</button>
+								<div class="abc-figure ex333" data-qpm="240" style="flex: 1;"><script type="text/vnd.abc">
+X:14
+L:1/1
+K:C
+%%staves {RH LH}
+V:RH clef=treble
+V:LH clef=bass
+[V:RH] [CE] [|] [D^F] [|] [_EG] [|] [CE_A] [|] [D^F_B] [|] [C_EGB] [|] [DE_Ac] [|] [C_E^F_Bd] [|] [DEGB_e] [|] [_E^F_Ace] [|] [DEGB_e] [|] [C_E^F_Bd] [|] [DE_Ac] [|] [C_EGB] [|] [D^F_B] [|] [CE_A] [|] [_EG] [|] [D^F] [|] [CE] |]
+[V:LH] [_E,^F,_A,] [|] [E,G,_B,] [|] [^F,_A,B,] [|] [G,_B,] [|] [_A,B,] [|] _B, [|] B, [|] x [|] x [|] x [|] x [|] x [|] B, [|] _B, [|] [_A,B,] [|] [G,_B,] [|] [^F,_A,B,] [|] [E,G,_B,] [|] [_E,^F,_A,] |]
+</script></div>
+							</div>
+							<p style="font-size: 40%; text-align:left; margin: 0.2em 0 0 4.5rem;"><em>Messiaen, Ex. 333:</em> each voice climbs the entire mode, starting on a different degree, then retraces its steps.</p>
+						</div>
+						<p class="fragment" data-fragment-index="3" style="font-size: 60%; text-align:left;">6 <strong>major</strong> and 3 <strong>augmented</strong> triads: familiar chords in an unfamiliar, symmetrical world.</p>
+						<p class="fragment" data-fragment-index="4" style="font-size: 60%; text-align:left;">In Ex. 333, the mode’s <em>symmetry shapes the harmony</em>: <span class="fragment" data-fragment-index="5"><br>chords <strong style="color:#43b56f;">1, 4, 7, and 10</strong> are the same sound, each a <strong>major third</strong> higher.</span></p>
+					</div>
+				</section>
+
+				<section class="centered-media-slide">
+					<div class="regular-text --onum">
+						<div style="padding-bottom: 15px;">
+							<h4>Theme et variations<br><em>(Messiaen, 1932)</em></h4>
+						</div>
+						<div class="media-row">
+							<div class="video-col">
+								<div style="position: relative; width:100%; aspect-ratio: 16 / 9;">
+									<iframe
+										class="yt-clean"
+										src="https://www.youtube.com/embed/pmcewWFR1Jw?enablejsapi=1&rel=0&controls=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1"
+										title="Messiaen – Thème et variations for violin and piano (score video)"
+										style="position: absolute; inset: 0; width:100%; height:100%; max-width:none; max-height:none; border:none;"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										referrerpolicy="strict-origin-when-cross-origin"
+									></iframe>
+								</div>
+								<p style="font-size: 35%;"><em>source</em>: George N. Gianopoulos, “Olivier Messiaen – Theme and Variations for Violin and Piano (1932) [Score-Video]”</p>
+							</div>
+							<div class="quote-col" style="font-size: 55%;">
+								<ul>
+									<li class="fragment">A wedding gift for his wife, violinist <strong>Claire Delbos</strong>; they premiered it together in 1932.</li>
+									<li class="fragment">In the theme (mm. 1–14), violin <em>and</em> piano stay inside <strong style="color:#4ea1ff;">Mode 3</strong>: melody and harmony share the same nine notes.</li>
+									<li class="fragment">Listen: does it feel like it has a <strong>home</strong>? Or does the ground keep shifting?</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+				</section>
+
+				<!-- closing slide: same look as the title slide (styles from #glitchy-date, inlined to avoid a duplicate id) -->
+				<section data-background-color="#f7f2d3">
+					<div style="font-family: plantin, serif; font-size: 0.5em; color: lightslategray;">
+						<!-- .hero is inline-block, so each line gets its own block wrapper to stack -->
+						<div><p style="font-size: 1.5em; font-style: oblique;" class="--onum hero glitch layers movement paths" data-text="Thank You for Coming!">Thank You for Coming!</p></div>
+						<div><p class="--onum hero glitch layers movement paths" data-text="Twist the Dial: Same Notes, New Worlds — Prelude Day 2026">Twist the Dial: Same Notes, New Worlds — Prelude Day 2026</p></div>
+					</div>
+				</section>
 
 				<section>
 					<div class="regular-text --onum">
@@ -1950,9 +2194,22 @@ w: On-ly kiss-es on the cheek from now on _ _ And in a lit-tle while _ we'll on-
 				clickListener: abcElem => playAbcElement(abcElem, visualObj, qpm)
 			})[0];
 			visualObj.setUpAudio({ qpm: qpm, chordsOff: true });  // attaches midiPitches to each note, for click-to-play; chordsOff: chord symbols are labels, not auto-accompaniment
+			if (fig.classList.contains("triad-roots")) colorChordRoots(fig);
 			fig.abcVisualObj = visualObj;
 			fig.abcQpm = qpm;
 			fig.dataset.rendered = "1";
+			}
+
+			// tag each chord's lowest notehead (largest y) and its accidental, which abcjs draws just before it, as .chord-root
+			function colorChordRoots(fig) {
+			fig.querySelectorAll(".abcjs-note").forEach(note => {
+				const heads = [...note.querySelectorAll(".abcjs-notehead")];
+				if (!heads.length) return;
+				const root = heads.reduce((low, h) => h.getBBox().y > low.getBBox().y ? h : low);
+				root.classList.add("chord-root");
+				const prev = root.previousElementSibling;
+				if (prev && !prev.classList.contains("abcjs-notehead")) prev.classList.add("chord-root");
+			});
 			}
 
 			// click a note/chord: play just that event
@@ -2038,6 +2295,55 @@ w: On-ly kiss-es on the cheek from now on _ _ And in a lit-tle while _ we'll on-
 			}
 			return "X:1\nL:1/1\nK:C\n" + notes.join(" ") + " |]";
 			}
+
+			// transposition dial (Messiaen Mode 3): the last visible [data-t] fragment sets how far the collection is transposed
+			const MODE3_PCS = [0, 2, 3, 4, 6, 7, 8, 10, 11];
+			const PC_NAMES = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
+			const PC_ABC = ["C", "^C", "D", "_E", "E", "F", "^F", "G", "_A", "A", "_B", "B"];
+
+			function updateTransposeDial(slide) {
+			const dial = slide && slide.querySelector(".transpose-dial");
+			if (!dial) return;
+			const shown = slide.querySelectorAll(".t-list .fragment.visible[data-t]");
+			const current = shown[shown.length - 1];
+			const t = current ? Number(current.dataset.t) : 0;
+
+			dial.style.setProperty("--turn", (30 * t) + "deg");
+			slide.querySelectorAll(".t-list li").forEach(li => li.classList.toggle("is-current", li === current));
+
+			const pcs = MODE3_PCS.map(pc => pc + t);  // ascending from the transposed starting note
+			dial.querySelector(".tdial-caption").textContent = t === 4
+				? "T4 = T0 · the same 9 notes!"
+				: "T" + t + " · " + pcs.map(pc => PC_NAMES[pc % 12]).join(" ");
+
+			const fig = slide.querySelector(".transpose-scale");
+			const src = transposeScaleAbc(pcs.concat(pcs[0] + 12));
+			if (fig && fig.dataset.abcSrc !== src) {
+				stopAbcPlayback();
+				renderAbcInto(fig, src, 260, MODE_SCALE_QPM);  // narrow column: small staffwidth keeps noteheads large
+				fig.dataset.abcSrc = src;
+			}
+			}
+
+			// ABC for a list of pitch classes (offsets from C4); invisible barlines [|] reset accidentals,
+			// and a natural sign is added when the same letter was just shown with an accidental
+			function transposeScaleAbc(pcs) {
+			const altered = new Set();
+			const notes = pcs.map(p => {
+				let name = PC_ABC[p % 12];
+				const letter = name.slice(-1);
+				if (name.length > 1) altered.add(letter);
+				else if (altered.has(letter)) name = "=" + name;
+				return p >= 12 ? name.slice(0, -1) + letter.toLowerCase() : name;
+			});
+			return "X:1\nL:1/1\nK:C\n" + notes.join(" [|] ") + " |]";
+			}
+
+			Reveal.on('fragmentshown', () => updateTransposeDial(Reveal.getCurrentSlide()));
+			Reveal.on('fragmenthidden', () => updateTransposeDial(Reveal.getCurrentSlide()));
+			Reveal.on('slidechanged', event => updateTransposeDial(event.currentSlide));
+			Reveal.on('ready', event => updateTransposeDial(event.currentSlide));
+			if (Reveal.isReady()) updateTransposeDial(Reveal.getCurrentSlide());
 
 			Reveal.on('fragmentshown', () => updateModeDial(Reveal.getCurrentSlide()));
 			Reveal.on('fragmenthidden', () => updateModeDial(Reveal.getCurrentSlide()));
