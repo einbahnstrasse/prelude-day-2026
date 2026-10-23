@@ -1051,6 +1051,13 @@ V:LH clef=bass
 			fig.abcVisualObj = visualObj;
 			fig.abcQpm = qpm;
 			fig.dataset.rendered = "1";
+			relayoutSoon();
+			}
+
+			// reveal centers a slide using its height on arrival, before abcjs has drawn into it; once the
+			// notation exists the slide is taller, so re-center right away (the new SVG is already measurable)
+			function relayoutSoon() {
+			if (Reveal.isReady()) Reveal.layout();
 			}
 
 			// tag each chord's lowest notehead (largest y) and its accidental, which abcjs draws just before it, as .chord-root
